@@ -9,7 +9,7 @@
 ;; Keywords   : nu nushell org-mode org-babel
 
 ;; Package-Version: 0.0.1
-;; Package-Requires: ((emacs "29.1"))
+;; Package-Requires: ((emacs "29.1") (nushell-ts-mode "0.0.1"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -28,8 +28,8 @@
 
 ;;; Commentary:
 ;;
-;; Still in early stages.  I haven't used it much, but I wanted something that
-;; was usable.
+;; This package enables syntax highlighting and code execution of nushell code
+;; inside of org-mode source code blocks.
 
 ;;; Code:
 
@@ -44,7 +44,11 @@
   :group 'nushell-ts-babel)
 
 (defun org-babel-variable-assignments:nushell (params)
-  "Return a list of Nushell const statements"
+  "Return a list of Nushell const statements.
+
+PARAMS is a quasi-alist of header args, which may contain
+multiple entries for the key `:var'.  This function returns a
+list of the cdr of all the `:var' entries."
   (mapcar
    (lambda (pair)
      (format "const %s = \"%s\""
@@ -55,7 +59,9 @@
 ;; Define a function to execute code for your custom language
 (defun org-babel-execute:nushell (body params)
   "Execute a block of Nushell commands with Babel.
-This function is called by `org-babel-execute-src-block'."
+This function is called by `org-babel-execute-src-block'.
+
+BODY is expanded using PARAMS."
   (let ((tmp-src-file (org-babel-temp-file "nushell-src-" ".nu"))
         (full-body
          (org-babel-expand-body:generic body params

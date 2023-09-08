@@ -21,6 +21,8 @@ You will need to clone the repo and load it manually or use whatever package man
  '(nushell-ts-babel :type git :host github :repo "herbertjones/nushell-ts-babel"))
 ```
 
+### Enable language
+
 For instance, on my system I have:
 ```emacs-lisp
 (with-eval-after-load 'org-contrib
