@@ -86,5 +86,6 @@ BODY is expanded using PARAMS."
 (add-to-list 'org-src-lang-modes '("nushell" . nushell-ts))
 
 (provide 'nushell-ts-babel)
+(provide 'ob-nushell)
 
 ;;; nushell-ts-babel.el ends here
